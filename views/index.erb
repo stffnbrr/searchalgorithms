@@ -1,0 +1,56 @@
+<div align=center>
+
+<form action="/" method="post">
+  Size
+	<input type="text" name="size" id="height" value="8,8" />
+  Source
+	<input type="text" name="source" id="source" value="2,1" />
+  Target
+	<input type="text" name="target" id="target" value="4,5" />
+  Algorithm
+	<select name="algo" id="algo"> 
+  		<option value="breadth_first">breadth_first</option>
+  		<option value="readth_first_minimal_cost">readth_first_minimal_cost</option>
+  		<option value="depth_first">depth_first</option>
+  		<option value="depth_first_limit">depth_first_limit</option>
+  		<option value="hillclimbing">hillclimbing</option>
+  		<option value="a_algo">A</option>
+	</select>
+	<input type="submit" name="submit" value="DO!" />
+</form>
+
+<br>
+<p>Costs <%= @foo %></p>
+<br>
+<style>
+table td {width:40px;height:30px;margin:0;padding:0;font-size:13px;text-align:center;}
+table td.act {-moz-box-shadow: 3px 3px 3px #888;
+-webkit-box-shadow: 3px 3px 3px #888;
+box-shadow: 3px 3px 3px #888;}
+</style>
+<table cellspacing="5" >
+<% size_y = 0; %>
+<% @board.each do |row| %>
+    <tr>
+	<% size_x = 0; %>
+	<% row.each do |value|  	
+		red =(value*22).to_s(16); 
+		green = ( (11 - value) *22).to_s(16); %>
+		<% path_border = ''; if( @result.path.include?(Field.new(size_x,size_y)) ) then path_border = 'bgcolor="#4444ff"' end%>
+		<% if( @s==Field.new(size_x,size_y) ) then path_border = 'bgcolor="yellow"' end%>
+		<% if( @t==Field.new(size_x,size_y) ) then path_border = 'bgcolor="#000"' end%>
+		<td>
+		<table cellspacing="3" <%= path_border %>><tr><td bgcolor="">
+		   <%= value %>
+		</td></tr></table></td>
+		<% size_x = size_x + 1 %>
+	<% end %>
+	<% size_y = size_y + 1 %>
+	</tr>
+<% end %>
+</table>
+<br>
+<%= @result %>
+<br>
+Time: <%= @time %>
+</div>
